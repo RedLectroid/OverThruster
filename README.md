@@ -38,5 +38,7 @@ You can find me on Twitter: @bhohenadel
 
 ##Thanks
 Thank you to my beautiful wife for putting up with my late nights while I worked on this, and her fantastic support she has always given me.
+
 @loneferret for the testing and the feedback and most importantly the encouragement when I first started playing with this idea
+
 @mycurial for helping me get in the security industry
