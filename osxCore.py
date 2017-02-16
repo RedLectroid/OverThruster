@@ -103,7 +103,7 @@ def osxWriteFile(fileName,payloadFunc,payload):
   buffer += "}\n"
 
   fileName = coreUtils.checkINO(fileName)
-  file = open(fileName,'m')
+  file = open(fileName,'w')
   file.write(buffer)
   file.close()
   
