@@ -34,11 +34,11 @@ Usage of OverThruster for attacking targets without prior mutual consent is ille
 "Don't be mean; we don't have to be mean, cuz, remember, no matter where you go, there you are." - Buckaroo Banzai
 
 ##About me
-You can find me on Twitter: @bhohenadel
+You can find me on Twitter: [@bhohenadel](https://twitter.com/bhohenadel)
 
 ##Thanks
 Thank you to my beautiful wife for putting up with my late nights while I worked on this, and her fantastic support she has always given me.
 
-@loneferret for the testing and the feedback and most importantly the encouragement when I first started playing with this idea
+[@loneferret](https://twitter.com/loneferret) for the testing and the feedback and most importantly the encouragement when I first started playing with this idea
 
-@mycurial for helping me get in the security industry and ...alot more
+[@mycurial](https://twitter.com/myrcurial) for helping me get in the security industry and ...alot more
