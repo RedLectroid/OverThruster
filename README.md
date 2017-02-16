@@ -24,3 +24,9 @@ NicoHood's HID: https://github.com/NicoHood/HID/ (This can be installed straight
 1. After flashing the payload, the Arduino IDE will disconnect the Arduino, then it will automatically reconnect, and deliver the payload. Be ready for characters to suddenly be typed to the screen; I recommend having notepad or similar open and focused when you flash the sketch
 2. OverThruster currently drops the .ino file in the working directory, so look for it there.
 3. For the UAC Bypass techniques, timing is key.  Older devices will open the Terminal with Admin rights at a slower speed, and therefore you may need to adjust the delay() in the BypassUAC functions in the sketch
+
+##Disclaimer
+Don't do anything illegal with this.
+Usage of OverThruster for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, provincial/state and federal laws. Developer assume NO liability and are NOT responsible for any misuse or damage caused by this program.
+
+"Don't be mean; we don't have to be mean, cuz, remember, no matter where you go, there you are." - Buckaroo Banzai
