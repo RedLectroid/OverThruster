@@ -5,10 +5,10 @@
 OverThruster is a tool to generate sketches for Arduinos when used as an HID Attack.  It was designed around devices with the ATMEGA32U4 chip, like the CJMCU-BEETLE, or the new LilyGo "BadUSB" devices popping up on ebay and aliexpress that look like USB sticks but contain an Arduino.  I wrote this because the few other tools out there that do similar don't have as many customization options like the UAC Bypass options or the notification bubble options.  I wanted to create something that could quickly generate a custom payload and that did not require anything extra to be install beyond the standard Python libraries and the Arduino IDE.  I also wrote this to get better at Python.  This is my first release of anything, so expect problems.
 
 ###Requirements
-An Arduino that supports keyboard emulation
-Python 2.7 (Python 3 version is coming)
-Arduino IDE: https://www.arduino.cc/en/Main/Software
-NicoHood's HID: https://github.com/NicoHood/HID/ (This can be installed straight from the Arduino IDE from the menu: Sketch->.Include Library->manage Libraries and search for "HID-Project")
+- An Arduino that supports keyboard emulation
+- Python 2.7 (Python 3 version is coming)
+- Arduino IDE: https://www.arduino.cc/en/Main/Software
+- NicoHood's HID: https://github.com/NicoHood/HID/ (This can be installed straight from the Arduino IDE from the menu: Sketch->.Include Library->manage Libraries and search for "HID-Project")
 
 ###Use
 1. start by launching OverThruster.py
