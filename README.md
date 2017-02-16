@@ -22,7 +22,7 @@ OverThruster is a tool to generate sketches for Arduinos when used as an HID Att
 ###Notes
 
 1. After flashing the payload, the Arduino IDE will disconnect the Arduino, then it will automatically reconnect, and deliver the payload. Be ready for characters to suddenly be typed to the screen; I recommend having notepad or similar open and focused when you flash the sketch
-2. OverThruster currently drops the .ino file in the working directory, so look for it there.
+2. OverThruster currently drops the .ino file and the Metasploit .rc file in the working directory, so look for them there.
 3. For the UAC Bypass techniques, timing is key.  Older devices will open the Terminal with Admin rights at a slower speed, and therefore you may need to adjust the delay() in the BypassUAC functions in the sketch
 4. This is just the beginning.  Many more payloads, features, options and additions are coming.
 5. Please contribute if you have something to add.
