@@ -44,7 +44,9 @@ Thank you to my beautiful wife for putting up with my late nights while I worked
 [@mycurial](https://twitter.com/myrcurial) for helping me get in the security industry and ...alot more
 
 ###CHANGELOG
-v0.02
+
+v0.2
 Added new payload, and customization options to the notification bubble.
+
 v0.1
 Initial commit
