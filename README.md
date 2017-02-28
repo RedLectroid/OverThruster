@@ -46,7 +46,8 @@ Thank you to my beautiful wife for putting up with my late nights while I worked
 ###CHANGELOG
 
 v0.2
-Added new payload, and customization options to the notification bubble.
+- Added new payload that grabs the username and computername and sends it to a listener
+- customization options to the notification bubble.
 
 v0.1
-Initial commit
+- Initial commit
