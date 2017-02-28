@@ -17,7 +17,7 @@ def HelperBanner():
 def helperMenu():
 
   menu = {}
-  menu['1']="Invoke-Mimikatz/Add Admin Listner"
+  menu['1']="Invoke-Mimikatz/Add Admin/UserName and PCname Listener"
   menu['42']="Main Menu"
   menu['99']= "Exit"
 
@@ -70,6 +70,7 @@ def listenerMode():
     menu = {}
     menu['1'] = "Set listener to Mimikatz"
     menu['2'] = "Set listener to Add Admin"
+    menu['3'] = "Set listener to UserName and Computer Name"
     menu['42'] = "Back to previous menu"
     menu['99'] = "Exit"
   
@@ -85,6 +86,8 @@ def listenerMode():
       listener = "MimiKatz"
     elif selection == '2':
       listener = "addAdmin"
+    elif selection == '3':
+      listener = "userPCname"
     elif selection == '42': 
       coreUtils.clearScreen()	
       break
@@ -108,8 +111,8 @@ def helperOption1():
     coreUtils.clearScreen()
     print "********************************************************************************************"
     print "*                                                                                          *"
-    print "*                             Invoke-Mimikatz Listner                                      *"
-    print "*      This helper listens on a specific port and write the Mimikatz data to a file        *"
+    print "*                                     Listner                                              *"
+    print "*     This helper listens on a specific port and write the relevant data to a file         *"
     print "*                           Options are: 1.Listening Port                                  *"
     print "*                                                                                          *"
     print "********************************************************************************************"
@@ -117,7 +120,7 @@ def helperOption1():
 
     menu = {}
     menu['1'] = "Set the listening port"
-    menu['2'] = "Set listener to mimikatz or Admin mode"
+    menu['2'] = "Set listener to mimikatz, Admin or User and PC Name mode"
     menu['3'] = "Start the listener"
     menu['42']= "Return to previous menu"
     menu['99']= "Exit"
@@ -160,6 +163,8 @@ def helperOption1():
     fileExtention = '-mimiKatz'
   elif listener == 'addAdmin':
     fileExtention = '-addAdmin'
+  elif listener == 'userPCname'
+    fileExtention = '-userPCname'
     
   if done == True and looper == True:   
     
