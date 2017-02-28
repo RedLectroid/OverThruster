@@ -163,7 +163,7 @@ def helperOption1():
     fileExtention = '-mimiKatz'
   elif listener == 'addAdmin':
     fileExtention = '-addAdmin'
-  elif listener == 'userPCname'
+  elif listener == 'userPCname':
     fileExtention = '-userPCname'
     
   if done == True and looper == True:   
