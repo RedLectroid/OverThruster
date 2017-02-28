@@ -42,3 +42,9 @@ Thank you to my beautiful wife for putting up with my late nights while I worked
 [@loneferret](https://twitter.com/loneferret) for the testing and the feedback and most importantly the encouragement when I first started playing with this idea
 
 [@mycurial](https://twitter.com/myrcurial) for helping me get in the security industry and ...alot more
+
+###CHANGELOG
+v0.02
+Added new payload, and customization options to the notification bubble.
+v0.1
+Initial commit
