@@ -111,6 +111,28 @@ def Win9info():
   print "\n"
   raw_input("Please press Enter to return to the previous screen")
   
+def Win10info():
+  print "\n\n"
+  print "This payload will type out a powershell script and execute it, creating reverse/meterpreter/https connection"
+  print "\n"
+  print "You are required to provide IP address and port the payload will connect back to"
+  print "As well as the other standard payload options (UACBypass, notification bubble, etc)"
+  print "\n"
+  print "The powershell script will run from memory"
+  print "\n"
+  raw_input("Please press Enter to return to the previous screen")
+  
+def Win11info():
+  print "\n\n"
+  print "This payload will get the current user and computername and send it to a remote listener"
+  print "\n"
+  print "You are required to provide IP address and port the payload will send data back to"
+  print "As well as the other standard payload options (UACBypass, notification bubble, etc)"
+  print "\n"
+  print "The powershell script will run from memory"
+  print "\n"
+  raw_input("Please press Enter to return to the previous screen")
+  
 def UACBypassInfo():
   print "\n\n"
   print "Option 2. UAC Bypass technique will download FuzzySecurity's bypass technique from github, and run it"
@@ -127,7 +149,7 @@ def UACBypassInfo():
 def bubbleInfo():
   print "\n\n"
   print "This option adds a notification bubble to popup from the system tray to distract the user"
-  print "using the command wlrmdr.exe -s 60000 -f 1 -t \"Installing Drivers\" -m \"Please do not remove the device\""
+  print "by default the Title is \"Installing Drivers\" and the message is \"Please do not remove the device\""
   print "\n"
   raw_input("Please press Enter to return to the previous screen")
   print "\n"
