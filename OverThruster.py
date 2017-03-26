@@ -36,7 +36,7 @@ def mainMenu():
       osxCore.osxMenu()
     elif selection == '3':
       nixCore.LinuxMenu()
-    elif selection == '5':
+    elif selection == '4':
       helperCore.helperMenu()
     elif selection == '0':
       nfoCore.generalInfo()
