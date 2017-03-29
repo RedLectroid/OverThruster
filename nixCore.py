@@ -328,7 +328,7 @@ def nixOption3():
     elif selection == '2':
       remotePort = raw_input("Please enter the listening port on the remote server:")	
     elif selection == '3':
-      RCfile = getRCFileName('reverseMetPHP.rc')
+      RCfile = coreUtils.getRCFileName('reverseMetPHP.rc')
     elif selection == '4':
       fileName = coreUtils.getFileName('reverseMetPHP.ino')
     elif selection == '5':
