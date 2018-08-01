@@ -132,6 +132,15 @@ def Win11info():
   print "The powershell script will run from memory"
   print "\n"
   raw_input("Please press Enter to return to the previous screen")
+
+def Win12info():
+  print "\n\n"
+  print "This payload will execute a custom Command Prompt payload that you provide"
+  print "\n"
+  print "You are required provide the custom Command Prompt payload contents the payload will execute"
+  print "As well as the other standard payload options (UACBypass, notification bubble, etc)"
+  print "\n"
+  raw_input("Please press Enter to return to the previous screen")
   
 def UACBypassInfo():
   print "\n\n"
