@@ -1631,6 +1631,7 @@ def WinOption12():
       done = True
   
   if done == True and looper == True:
+    customCMD = coreUtils.addEscape(customCMD)
     payload = "void customCMD(){\n"
     payload += "Keyboard.println(\"" + customCMD + "\");\n"
     payload += "  delay(100);\n"
