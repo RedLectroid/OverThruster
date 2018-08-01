@@ -119,3 +119,6 @@ def checkQuotes(string):
     string = '\\\"' + string + '\\\"'
   return string
   
+def addEscape(string):
+  string = string.replace('"','\\"')
+  return string
