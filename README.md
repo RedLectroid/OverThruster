@@ -9,13 +9,13 @@ OverThruster is a tool to generate sketches for Arduinos when used as an HID Att
 ### Requirements
 
 - An Arduino that supports keyboard emulation
-- Python 2.7 (Python 3 version is coming)
+- Python 2.7
 - Arduino IDE: https://www.arduino.cc/en/Main/Software
 - NicoHood's HID: https://github.com/NicoHood/HID/ (This can be installed straight from the Arduino IDE from the menu: Sketch->.Include Library->manage Libraries and search for "HID-Project")
 
 ### Use
 
-1. start by launching OverThruster.py
+1. Start by launching OverThruster.py
 1. Select the target's OS
 1. Select the specific payload
 1. Fill in the required settings
