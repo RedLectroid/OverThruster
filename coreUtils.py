@@ -21,7 +21,7 @@ def bannerMain():
   banner += "\n"
   banner += "\"Hey, hey, hey - don't be mean. We don't have to be mean. 'Cause, remember: no matter where you go... there you are\""
   banner += "\n\n"
-  print banner
+  print(banner)
 
 def clear():
 
@@ -52,7 +52,7 @@ def msfRCfile(IP,port,payload, fileName):
   file.write(buffer)
   file.close()
 
-  print "\n\nWrote Metasploit file " + fileName 
+  print("\n\nWrote Metasploit file " + fileName)
 
 def checkIP(IPaddress):
   try:
@@ -86,7 +86,7 @@ def getFileName(defaultFileName):
 
   fileExists = True
   while fileExists == True:
-    fileName = raw_input("Please enter the name of the output file (if left blank the default \""+defaultFileName+"\"): ")
+    fileName = input("Please enter the name of the output file (if left blank the default \""+defaultFileName+"\"): ")
     if fileName == "":
       fileName = defaultFileName
     fileExists = FileCheck(fileName)
@@ -97,7 +97,7 @@ def getRCFileName(defaultFileName):
 
   fileExists = True
   while fileExists == True:
-    fileName = raw_input("Please enter the name of the Metasploit RC file (if left blank the default \""+defaultFileName+"\"): ")
+    fileName = input("Please enter the name of the Metasploit RC file (if left blank the default \""+defaultFileName+"\"): ")
     if fileName == "":
       fileName = defaultFileName
     fileExists = FileCheck(fileName)

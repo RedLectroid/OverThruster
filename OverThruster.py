@@ -25,11 +25,12 @@ def mainMenu():
   while True:
     coreUtils.bannerMain()
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options:
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
     if selection =='1': 
       winCore.WinMenu() 
     elif selection == '2': 
@@ -43,7 +44,7 @@ def mainMenu():
     elif selection == '99': 
       break
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
 
 
 if __name__ == "__main__":

